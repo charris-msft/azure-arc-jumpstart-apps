@@ -26,7 +26,7 @@ then mosquitto.conf - `topic devices/myEdgeDevice/messages/events/freezer out 1`
 - [IoT Explorer](https://github.com/Azure/azure-iot-explorer/releases)
 
 - get a sas token - expires every 60 minutes
-`((az iot hub generate-sas-token -d myEdgeDevice -n $HUB_NAME -o json) | convertfrom-json).sas`
+`((az iot hub generate-sas-token -d chichagoFreezer2 --duration 60*20*24*365 -n charris-iot1 -o json) | convertfrom-json).sas | set-clipboard`
 
 - test with mosquitto_pub
 mosquitto_pub -t "devices/myEdgeDevice/messages/events/freezer" -i "myEdgeDevice" -u "charris-iot1.azure-devices.net/myEdgeDevice/?api-version=2020-09-30" -P "SharedAccessSignature sr=charris-iot1.azure-devices.net%2Fdevices%2FmyEdgeDevice&sig=tj9UrQvd9Y5gVheFoS8m9Peg4QhBG0%2BtjvRthS%2FqVaI%3D&se=1679593447" -h "charris-iot1.azure-devices.net" -V mqttv311 -p 8883 --cafile Baltimore.pem -m 'My Awesome Message' -d
