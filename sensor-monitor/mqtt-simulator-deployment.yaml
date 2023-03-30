@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: mqtt-simulator
+  name: mqtt-simulator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mqtt-simulator
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+      labels:
+        io.kompose.service: mqtt-simulator
+    spec:
+      containers:
+        # - image: charrisagoracr.azurecr.io/mqtt-simulator:latest
+        - image: js/mqtt-simulator
+          name: mqtt-simulator
+          resources: {}
+      restartPolicy: Always
+status: {}
