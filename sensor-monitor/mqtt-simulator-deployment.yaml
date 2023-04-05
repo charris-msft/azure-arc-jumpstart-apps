@@ -12,13 +12,12 @@ spec:
   strategy: {}
   template:
     metadata:
-      annotations:
       labels:
         io.kompose.service: mqtt-simulator
     spec:
       containers:
         # - image: charrisagoracr.azurecr.io/mqtt-simulator:latest
-        - image: js/mqtt-simulator
+        - image: localhost:5000/mqtt-broker:latest
           name: mqtt-simulator
           resources: {}
       restartPolicy: Always

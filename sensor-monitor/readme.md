@@ -38,14 +38,23 @@ mosquitto_pub -t "devices/myEdgeDevice/messages/events/freezer" -i "myEdgeDevice
 
 1. from the /sensor-monitor folder
 2. start the broker
-    `docker build -t js/mqtt-broker .\mqtt-broker\.; .\mqtt-broker\Dockerrun.ps1`
+    `docker build -t js/mqtt-broker:latest .\mqtt-broker\.; .\mqtt-broker\Dockerrun.ps1`
 3. start the simulator
-    `docker build -t js/mqtt-simulator .\mqtt-simulator\.; .\mqtt-simulator\Dockerrun.ps1`
+    `docker build -t js/mqtt-simulator:latest .\mqtt-simulator\.; .\mqtt-simulator\Dockerrun.ps1`
 4. install mosquitto client
    `apt install mosquitto -y`
 5. subscribe
     `mosquitto_sub -h localhost -p 1883 -u sensor123 -P sensor123 -v -t freezer/+`
     or http://mqtt-explorer.com/ - connect and then click the little green graph icon next to the value on the right side
+
+### Kube-ify
+
+1. tag the images
+
+    ```powershell
+    docker tag js/mqtt-broker:latest localhost:5000/mqtt-broker:latest
+    docker tag js/mqtt-simulator:latest localhost:5000/mqtt-simulator:latest
+    ```
 
 ## Azure Setup
 

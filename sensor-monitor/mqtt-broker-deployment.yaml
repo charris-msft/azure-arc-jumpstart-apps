@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         # - image: charrisagoracr.azurecr.io/mqtt-broker:latest
-        - image: mqtt-broker:latest
+        - image: localhost:5000/mqtt-broker:latest
           name: mqtt-broker
           ports:
             - containerPort: 1883
