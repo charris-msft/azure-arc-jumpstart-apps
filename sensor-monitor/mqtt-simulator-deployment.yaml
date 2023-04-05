@@ -16,8 +16,8 @@ spec:
         io.kompose.service: mqtt-simulator
     spec:
       containers:
-        # - image: charrisagoracr.azurecr.io/mqtt-simulator:latest
-        - image: localhost:5000/mqtt-broker:latest
+        - image: charrisagoracr.azurecr.io/mqtt-simulator:latest
+        # - image: 10.0.0.172:5000/mqtt-broker:latest
           name: mqtt-simulator
           resources: {}
       restartPolicy: Always

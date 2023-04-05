@@ -11,7 +11,7 @@ Easy-to-configure MQTT simulator written in [Python 3](https://www.python.org/) 
 
 ## CHarris - Testing
 
-### Topics are *extremely sensitive*
+### Topics are *extremely sensitive* in Azure IoT
 
 if settings.json - `"devices/myEdgeDevice/messages/events/freezer"`
 then mosquitto.conf - `topic devices/myEdgeDevice/messages/events/freezer out 1`
@@ -23,7 +23,9 @@ then mosquitto.conf - `topic devices/myEdgeDevice/messages/events/freezer out 1`
 - [Quickstart creates an Azure IoT Edge device on Linux | Microsoft Learn](https://learn.microsoft.com/azure/iot-edge/quickstart-linux?view=iotedge-1.4&viewFallbackFrom=iotedge-2020-11)
 - [Quickstart - Send telemetry to Azure IoT Hub (CLI) quickstart | Microsoft Learn](https://learn.microsoft.com/azure/iot-hub/quickstart-send-telemetry-cli)
 
+#### Tools
 - [IoT Explorer](https://github.com/Azure/azure-iot-explorer/releases)
+- [MQTT Explorer](http://mqtt-explorer.com/)
 
 - get a sas token - expires every 60 minutes
 `((az iot hub generate-sas-token -g charris-iot1 -d chicagoFreezer2 --duration $(60*20*24*365) -n charris-iot1 -o json) | convertfrom-json).sas | set-clipboard`
@@ -49,11 +51,17 @@ mosquitto_pub -t "devices/myEdgeDevice/messages/events/freezer" -i "myEdgeDevice
 
 ### Kube-ify
 
-1. tag the images
+1. tag the images for ACR
 
     ```powershell
-    docker tag js/mqtt-broker:latest localhost:5000/mqtt-broker:latest
-    docker tag js/mqtt-simulator:latest localhost:5000/mqtt-simulator:latest
+    docker tag localhost:5000/mqtt-broker:latest charrisagoracr.azurecr.io/mqtt-broker:latest
+    docker tag localhost:5000/mqtt-simulator:latest charrisagoracr.azurecr.io/mqtt-simulator:latest
+    ```
+
+2. push to ACR
+    ```powershell
+    docker push charrisagoracr.azurecr.io/mqtt-broker:latest
+    docker push charrisagoracr.azurecr.io/mqtt-simulator:latest
     ```
 
 2. deploy the images to the local registry
