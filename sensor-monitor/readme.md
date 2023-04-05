@@ -56,6 +56,14 @@ mosquitto_pub -t "devices/myEdgeDevice/messages/events/freezer" -i "myEdgeDevice
     docker tag js/mqtt-simulator:latest localhost:5000/mqtt-simulator:latest
     ```
 
+2. deploy the images to the local registry
+
+    ```powershell
+    kubectl apply -f .\mqtt-broker-deployment.yaml
+    kubectl apply -f .\mqtt-broker-service.yaml
+    kubectl apply -f .\mqtt-simulator-deployment.yaml
+    ```
+
 ## Azure Setup
 
 1. https://techcommunity.microsoft.com/t5/internet-of-things-blog/mosquitto-client-tools-and-azure-iot-hub-the-beginning-of/ba-p/2824717
