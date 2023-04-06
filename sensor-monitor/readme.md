@@ -64,6 +64,31 @@ mosquitto_pub -t "devices/myEdgeDevice/messages/events/freezer" -i "myEdgeDevice
     docker push charrisagoracr.azurecr.io/mqtt-simulator:latest
     ```
 
+3. Create a service principal to access the ACR registry
+
+    ```powershell
+    $mcr_sub = "2554f64d-0419-4e39-8121-5e01270578ea"
+    $mcr_rg = "charris-agora"
+    $mcr_name = "charrisagoracr"
+    $mcr_url = "charrisagoracr.azurecr.io"
+    $sp_name = "charris-iot1"
+
+    $sp = az ad sp create-for-rbac `
+        --name $sp_name `
+        --role Contributor `
+        --scopes /subscriptions/$mcr_sub/resourcegroups/$mcr_rg/providers/Microsoft.ContainerRegistry/registries/$mcr_name | convertfrom-json
+    ```
+    # see OneNote for output with appId, password, tenant
+
+4. Create a secret in the cluster to store the service principal credentials for the ACR registry
+
+    ```powershell
+    kubectl create secret docker-registry $mcr_name `
+        --namespace default `
+        --docker-server $mcr_url `
+        --docker-username $sp.displayName `
+        --docker-password $sp.password
+
 2. deploy the images to the local registry
 
     ```powershell
