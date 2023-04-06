@@ -86,15 +86,15 @@ mosquitto_pub -t "devices/myEdgeDevice/messages/events/freezer" -i "myEdgeDevice
     kubectl create secret docker-registry $mcr_name `
         --namespace default `
         --docker-server $mcr_url `
-        --docker-username $sp.displayName `
+        --docker-username $sp.appId `
         --docker-password $sp.password
 
 2. deploy the images to the local registry
 
     ```powershell
-    kubectl apply -f .\mqtt-broker-deployment.yaml
+    kubectl apply -f .\mqtt-broker-pod.yaml
     kubectl apply -f .\mqtt-broker-service.yaml
-    kubectl apply -f .\mqtt-simulator-deployment.yaml
+    kubectl apply -f .\mqtt-simulator-pod.yaml
     ```
 
 ## Azure Setup
