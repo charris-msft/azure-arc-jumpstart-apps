@@ -9,7 +9,6 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: mqtt-broker
-  strategy: {}
   template:
     metadata:
       labels:
@@ -17,12 +16,11 @@ spec:
     spec:
       containers:
         - image: charrisagoracr.azurecr.io/mqtt-broker:latest
-        # - image: 10.0.0.172:5000/mqtt-broker:latest
           name: mqtt-broker
           ports:
             - containerPort: 1883
+          imagePullPolicy: Always
           resources: {}
       imagePullSecrets:
         - name: charrisagoracr
       restartPolicy: Always
-status: {}

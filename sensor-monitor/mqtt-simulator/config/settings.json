@@ -1,5 +1,5 @@
 {
-  "BROKER_URL": "host.docker.internal",
+  "BROKER_URL": "mqtt-broker.default.svc.cluster.local",
   "BROKER_PORT": 1883,
   "MQTT_USERNAME": "sensor123",
   "MQTT_PASSWORD": "sensor123",

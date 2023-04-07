@@ -9,7 +9,6 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: mqtt-simulator
-  strategy: {}
   template:
     metadata:
       labels:
@@ -17,8 +16,9 @@ spec:
     spec:
       containers:
         - image: charrisagoracr.azurecr.io/mqtt-simulator:latest
-        # - image: 10.0.0.172:5000/mqtt-broker:latest
           name: mqtt-simulator
+          imagePullPolicy: Always
           resources: {}
+      imagePullSecrets:
+        - name: charrisagoracr
       restartPolicy: Always
-status: {}
